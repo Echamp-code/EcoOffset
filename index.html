@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Offset Milestone Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts for a clean, modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- LEFT COLUMN: Logger & Input Controls -->
+        <header class="sidebar">
+            <div class="logo-area">
+                <span class="icon">🌱</span>
+                <h1>EcoOffset</h1>
+                <p class="tagline">Convert small habits into physical weights.</p>
+            </div>
 
+            <form id="logger-form" class="logger-card">
+                <h2>Log a New Habit</h2>
+                
+                <div class="form-group">
+                    <label for="habit-select">Choose Action</label>
+                    <select id="habit-select">
+                        <option value="bike" data-unit="miles" data-factor="0.4">🚲 Commuted by Bike (0.4 kg/mi)</option>
+                        <option value="meal" data-unit="meals" data-factor="1.2">🥗 Plant-Based Meal (1.2 kg/meal)</option>
+                        <option value="dry" data-unit="loads" data-factor="0.8">🧺 Line-Dried Clothes (0.8 kg/load)</option>
+                        <option value="reusable" data-unit="uses" data-factor="0.1">☕ Used Reusable Cup (0.1 kg/use)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="habit-quantity">Amount (<span id="unit-label">miles</span>)</label>
+                    <div class="slider-container">
+                        <input type="range" id="habit-quantity" min="1" max="15" value="1">
+                        <span id="quantity-display">1</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Drop Weight on Scale ➔</button>
+            </form>
+
+            <div class="stats-card">
+                <h3>Your Total Impact</h3>
+                <div class="impact-number"><span id="total-co2">0.0</span> <span class="unit">kg CO₂</span></div>
+                <button id="reset-btn" class="btn-reset">Reset Tracker</button>
+            </div>
+        </header>
+
+        <!-- RIGHT COLUMN: Interactive Visualizer & Milestones -->
+        <main class="visualizer">
+            <!-- Balance Scale Canvas Stage -->
+            <section class="scale-stage">
+                <div class="clouds-bg">
+                    <div class="cloud"></div>
+                    <div class="cloud"></div>
+                </div>
+                
+                <!-- Fall Zone where items spawn -->
+                <div id="fall-zone"></div>
+
+                <!-- The Physical Balance Scale -->
+                <div class="scale-system" id="scale-system">
+                    <div class="scale-beam" id="scale-beam"></div>
+                    <div class="scale-plate left-plate" id="left-plate">
+                        <span class="plate-label">Your Saved CO₂</span>
+                    </div>
+                    <div class="scale-plate right-plate">
+                        <span class="plate-label">Atmosphere</span>
+                    </div>
+                    <div class="scale-base"></div>
+                </div>
+            </section>
+
+            <!-- Bottom Milestone Tracker -->
+            <section class="milestone-track">
+                <h3>Current Milestone</h3>
+                <div class="milestone-card" id="current-milestone-card">
+                    <div class="milestone-icon" id="milestone-icon">📱</div>
+                    <div class="milestone-details">
+                        <h4 id="milestone-title">Smartphone</h4>
+                        <p id="milestone-desc">Offset the manufacturing weight of a basic phone (~0.2 kg)</p>
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar" id="milestone-progress" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text">0.0 / 0.2 kg</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Celebration Popup Modal -->
+    <div class="celebration-modal" id="celebration-modal">
+        <div class="modal-content">
+            <span class="emoji">🎉</span>
+            <h2>Milestone Unlocked!</h2>
+            <p id="modal-text">You've saved enough carbon to equal the weight of a smartphone!</p>
+            <button onclick="closeModal()" class="btn-close">Awesome!</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
